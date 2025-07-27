@@ -1,0 +1,40 @@
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "taskflow_manager.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-v --tb=short --strict-markers --reuse-db --nomigrations"
+testpaths = ["tasks/tests"]
+markers = [
+    "slow: marks tests as slow",
+    "unit: marks tests as unit tests",
+    "integration: marks tests as integration tests"
+]
+
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+# Файли для перевірки
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "B", # flake8-bugbear (знаходить баги)
+    "DJ", # flake8-django (спеціально для Django)
+]
+
+# Що ігнорувати
+ignore = [
+    "E501", # line too long (ruff автоматично форматує)
+]
+
+# Виключити файли
+exclude = [
+    "migrations",
+    ".venv",
+    "__pycache__",
+]
+
+[tool.ruff.lint.isort]
+# Сортування імпортів в стилі Django
+known-first-party = ["tasks", "taskflow_manager"]
