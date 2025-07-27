@@ -21,5 +21,5 @@ Tech Stack
   - Python 3.13
   - Git
 
-  # Run tests
+  Run tests
   pytest
