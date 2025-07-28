@@ -20,7 +20,6 @@ Tech Stack
   Prerequisites
 
   - Python 3.13
-  - Git
 
   Run tests
   
