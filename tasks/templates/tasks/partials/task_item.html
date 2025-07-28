@@ -1,0 +1,41 @@
+<div class="task-item d-flex align-items-center" id="task-{{ task.pk }}">
+    <input type="checkbox"
+           class="task-checkbox form-check-input"
+           {% if task.status == 'completed' %}checked{% endif %}
+           hx-post="{% url 'tasks:toggle_task_status' task_pk=task.pk %}"
+           hx-target="#task-{{ task.pk }}"
+           hx-swap="outerHTML">
+
+    <p class="task-text flex-grow-1 {% if task.status == 'completed' %}task-completed{% endif %}">
+        {{ task.name }}
+        {% if task.deadline %}
+            <small class="text-muted ms-2">
+                <i class="fas fa-calendar-alt"></i> {{ task.deadline|date:"d.m.Y" }}
+            </small>
+        {% endif %}
+        {% if task.priority == 'high' %}
+            <span class="badge bg-danger ms-2">High</span>
+        {% elif task.priority == 'medium' %}
+            <span class="badge bg-warning ms-2">Medium</span>
+        {% elif task.priority == 'low' %}
+            <span class="badge bg-secondary ms-2">Low</span>
+        {% endif %}
+    </p>
+
+    <div class="task-actions">
+        <button class="btn btn-sm btn-edit-task me-1"
+                hx-get="{% url 'tasks:edit_task_htmx' task_pk=task.pk %}"
+                hx-target="#task-{{ task.pk }}"
+                hx-swap="outerHTML"
+                title="Edit">
+            <i class="fas fa-pencil-alt me-1"></i>Edit
+        </button>
+        <button class="btn btn-sm btn-delete-task"
+                hx-get="{% url 'tasks:show_delete_task_modal_htmx' task_pk=task.pk %}"
+                hx-target="#modal-container"
+                hx-swap="innerHTML"
+                title="Delete">
+            <i class="fas fa-trash me-1"></i>Delete
+        </button>
+    </div>
+</div>

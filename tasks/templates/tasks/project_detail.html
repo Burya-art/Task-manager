@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.name }} - TaskFlow Manager{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg rounded-3">
+                <div class="card-header text-white py-3">
+                    <h4 class="mb-0 d-flex align-items-center">
+                        <i class="fas fa-calendar-check me-2"></i>
+                        {{ project.name }}
+                    </h4>
+                </div>
+
+                <div class="bg-light px-3 py-3 border-bottom">
+                    <form hx-post="{% url 'tasks:create_task_htmx' project_pk=project.pk %}"
+                          hx-target="#task-list"
+                          hx-swap="beforeend"
+                          hx-on::after-request="this.reset(); document.getElementById('empty-message')?.remove()">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <button type="submit" class="input-group-text transparent px-3">
+                                <img src="{% static 'tasks/images/add-task-icon.png' %}" alt="Add Task" width="20" height="20">
+                            </button>
+                            <input type="text"
+                                   name="name"
+                                   class="form-control form-control-lg"
+                                   placeholder="Start typing here to create a task..."
+                                   required>
+                            <!-- Hidden fields with default values -->
+                            <input type="hidden" name="status" value="pending">
+                            <input type="hidden" name="priority" value="medium">
+                            <button type="submit" class="btn btn-add-task px-4">Add Task</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body p-0">
+                    <div id="task-list">
+                        {% for task in project.tasks.all %}
+                            {% include 'tasks/partials/task_item.html' %}
+                        {% empty %}
+                            <div id="empty-message" class="p-4 text-center text-muted">
+                                No tasks in this project
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add new project button -->
+            <div class="text-center mt-4">
+                <button type="button" 
+                        class="btn btn-add-project"
+                        hx-get="{% url 'tasks:show_project_form_htmx' %}"
+                        hx-target="#modal-container"
+                        hx-swap="innerHTML">
+                    <img src="{% static 'tasks/images/add-task-icon.png' %}" alt="Add" width="20" height="20">
+                    <span>Add TODO List</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Контейнер для модального вікна -->
+<div id="modal-container"></div>
+{% endblock %}

@@ -1,0 +1,58 @@
+/* Базові стилі для TaskFlow Manager */
+
+/* Глобальні стилі */
+body {
+    background-color: #d18f0f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+/* Навігація */
+.navbar.navbar-dark {
+    background-color: #426cac;
+}
+
+.navbar.navbar-dark .navbar-brand {
+    font-weight: 600;
+    color: white;
+}
+
+.navbar.navbar-dark .navbar-text,
+.navbar.navbar-dark .nav-link {
+    color: white;
+}
+
+.navbar.navbar-dark .nav-link:hover {
+    color: #f0f0f0;
+}
+
+/* Карточки */
+.card {
+    border: none;
+    background-color: white;
+}
+
+.card .card-header {
+    background-color: #426cac;
+    border-bottom: none;
+    font-weight: 500;
+    color: white;
+}
+
+/* Перевизначення основних кнопок */
+.btn.btn-primary {
+    background-color: #426cac;
+    border-color: #426cac;
+}
+
+.btn.btn-primary:hover {
+    background-color: #3a5d96;
+    border-color: #3a5d96;
+}
+
+.btn.btn-primary:focus,
+.btn.btn-primary:active {
+    background-color: #3a5d96;
+    border-color: #3a5d96;
+    box-shadow: 0 0 0 0.2rem rgba(66, 108, 172, 0.25);
+}

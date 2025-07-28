@@ -1,0 +1,44 @@
+{% load static %}
+<div class="modal fade show" id="projectModal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Project</h5>
+                <button type="button" class="btn-close" onclick="document.getElementById('modal-container').innerHTML = ''"></button>
+            </div>
+            <form hx-post="{% url 'tasks:create_project_htmx' %}"
+                  hx-target="#modal-container"
+                  hx-swap="innerHTML">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Project Name</label>
+                        <input type="text" 
+                               class="form-control{% if form.name.errors %} is-invalid{% endif %}" 
+                               id="{{ form.name.id_for_label }}" 
+                               name="{{ form.name.name }}" 
+                               value="{{ form.name.value|default:'' }}"
+                               placeholder="Enter project name..."
+                               required>
+                        {% if form.name.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="form-text">Enter a name for the new task list</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('modal-container').innerHTML = ''">Cancel</button>
+                    <button type="submit" class="btn btn-add-project">
+                        <img src="{% static 'tasks/images/add-task-icon.png' %}" alt="Add" width="16" height="16">
+                        <span>Create Project</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

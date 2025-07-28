@@ -1,0 +1,181 @@
+/* Стилі компонентів */
+
+/* Стилі елементів задач */
+.task-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 20px;
+    transition: background-color 0.2s ease;
+}
+
+.task-item:hover {
+    background-color: #f8f9fa;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-checkbox {
+    transform: scale(1.2);
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.task-completed {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.task-text {
+    font-size: 1rem;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Стилі форм */
+.input-group-text i {
+    width: 16px;
+    text-align: center;
+}
+
+/* Прозорий елемент групи вводу */
+.input-group .input-group-text.transparent {
+    background-color: transparent;
+    border: 1px solid #ced4da;
+    color: inherit;
+}
+
+.input-group .input-group-text.transparent:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Користувацькі кнопки */
+.btn.btn-add-task {
+    background-color: #438a61;
+    border-color: #438a61;
+    color: white;
+}
+
+.btn.btn-add-task:hover {
+    background-color: #3a7b54;
+    border-color: #3a7b54;
+    color: white;
+}
+
+.btn.btn-add-task:focus,
+.btn.btn-add-task:active {
+    background-color: #326b47;
+    border-color: #326b47;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(67, 138, 97, 0.25);
+}
+
+/* Кнопки дій задач */
+.task-actions .btn {
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 11px;
+    transition: all 0.2s ease;
+    min-width: 60px;
+}
+
+.task-actions .btn.btn-edit-task {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.task-actions .btn.btn-edit-task:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.task-actions .btn.btn-edit-task:focus,
+.task-actions .btn.btn-edit-task:active {
+    background-color: #545b62;
+    border-color: #545b62;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+.task-actions .btn.btn-delete-task {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.task-actions .btn.btn-delete-task:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.task-actions .btn.btn-delete-task:focus,
+.task-actions .btn.btn-delete-task:active {
+    background-color: #bd2130;
+    border-color: #bd2130;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Стани завантаження */
+.htmx-request {
+    opacity: 0.7;
+}
+
+.htmx-request .btn {
+    pointer-events: none;
+}
+
+/* Анімації */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animated {
+    animation-fill-mode: both;
+}
+
+/* Кнопка додавання нового проекту */
+.btn.btn-add-project {
+    background-color: #436cac;
+    border-color: #436cac;
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn.btn-add-project:hover {
+    background-color: #3a5d96;
+    border-color: #3a5d96;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(67, 108, 172, 0.3);
+}
+
+.btn.btn-add-project:focus,
+.btn.btn-add-project:active {
+    background-color: #3a5d96;
+    border-color: #3a5d96;
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(67, 108, 172, 0.25);
+}
+
+.btn.btn-add-project img {
+    margin-right: 12px;
+}

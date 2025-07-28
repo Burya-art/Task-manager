@@ -10,8 +10,8 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Проєкт"
-        verbose_name_plural = "Проєкти"
+        verbose_name = "Project"
+        verbose_name_plural = "Projects"
         ordering = ["-created_at"]
         db_table = "projects"
 
@@ -21,15 +21,15 @@ class Project(models.Model):
 
 class Task(models.Model):
     STATUS_CHOICES = [
-        ("pending", "Очікує"),
-        ("in_progress", "В роботі"),
-        ("completed", "Завершено"),
+        ("pending", "Pending"),
+        ("in_progress", "In Progress"),
+        ("completed", "Completed"),
     ]
 
     PRIORITY_CHOICES = [
-        ("low", "Низький"),
-        ("medium", "Середній"),
-        ("high", "Високий"),
+        ("low", "Low"),
+        ("medium", "Medium"),
+        ("high", "High"),
     ]
 
     name = models.CharField(max_length=200)
@@ -46,8 +46,8 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Задача"
-        verbose_name_plural = "Задачі"
+        verbose_name = "Task"
+        verbose_name_plural = "Tasks"
         ordering = ["priority", "-created_at"]
         db_table = "tasks"
 

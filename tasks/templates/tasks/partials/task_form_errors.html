@@ -1,0 +1,15 @@
+<div class="alert alert-danger mt-2" role="alert">
+    <h6>Помилки валідації:</h6>
+    {% for field in form %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <small><strong>{{ field.label }}:</strong> {{ error }}</small><br>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <small>{{ error }}</small><br>
+        {% endfor %}
+    {% endif %}
+</div>
