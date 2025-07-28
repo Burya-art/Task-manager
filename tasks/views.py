@@ -143,7 +143,7 @@ def show_delete_task_modal_htmx(request, task_pk):
 def home_redirect(request):
     """Розумна навігація з головної сторінки"""
     if not request.user.is_authenticated:
-        return redirect('/admin/login/')
+        return redirect('/accounts/login/')
 
     # Отримуємо проєкти користувача
     user_projects = request.user.projects.all()

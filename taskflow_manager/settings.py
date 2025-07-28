@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
     "tasks",
 ]
 
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -123,3 +127,21 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Django Allauth Configuration
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Allauth settings - максимально проста реєстрація
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'password1*']  # Тільки username і пароль
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # Без верифікації email
+ACCOUNT_EMAIL_REQUIRED = False  # Email не обов'язковий
+ACCOUNT_AUTHENTICATION_METHOD = 'username'  # Логін тільки по username
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False  # Пароль вводити один раз
+ACCOUNT_LOGIN_ON_SIGNUP = True  # Автоматичний логін після реєстрації
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
