@@ -8,7 +8,7 @@ Tech Stack
 
   Features
 
-  - Project Management: Create, update, and delete your own projects. Owner-only access.
+  - Project Management: Create your own projects. Owner-only access.
   - Task Management: Add, update, delete tasks, and mark them as complete. Includes priorities and deadlines.
   - Interactive UI: HTMX-powered AJAX operations ensure dynamic, no-reload updates.
   - Authentication: Secure data access with django-allauth.
