@@ -8,11 +8,12 @@ Tech Stack
 
   Features
 
-  - Project management with user-specific access
-  - Task management with priority levels and deadlines
-  - Responsive design with Bootstrap 5
-  - Interactive UI without page reloads (HTMX)
-  - User authentication system
+  - Project Management: Create, update, and delete your own projects. Owner-only access.
+  - Task Management: Add, update, delete tasks, and mark them as complete. Includes priorities and deadlines.
+  - Interactive UI: HTMX-powered AJAX operations ensure dynamic, no-reload updates.
+  - Authentication: Secure data access with django-allauth.
+  - Responsiveness: Bootstrap 5 for proper display on all devices.
+  - Deployment: Project runs via Docker Compose.
 
   Local Development Setup
 
