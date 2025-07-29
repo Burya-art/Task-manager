@@ -44,11 +44,12 @@ class Task(models.Model):
     )
     deadline = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    order = models.PositiveIntegerField(default=0, help_text="Order of task in the list")
 
     class Meta:
         verbose_name = "Task"
         verbose_name_plural = "Tasks"
-        ordering = ["priority", "-created_at"]
+        ordering = ["order", "priority", "-created_at"]
         db_table = "tasks"
 
     def __str__(self):

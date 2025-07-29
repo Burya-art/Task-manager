@@ -1,4 +1,7 @@
-<div class="task-item d-flex align-items-center" id="task-{{ task.pk }}">
+<div class="task-item draggable-task d-flex align-items-center" 
+     id="task-{{ task.pk }}" 
+     draggable="true" 
+     data-task-id="{{ task.pk }}">
     <input type="checkbox"
            class="task-checkbox form-check-input"
            {% if task.status == 'completed' %}checked{% endif %}
