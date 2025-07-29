@@ -34,5 +34,3 @@ docker-compose run --rm test
 
 ## Linter
 ruff check .
-
-
