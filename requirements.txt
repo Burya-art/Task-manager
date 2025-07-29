@@ -4,3 +4,4 @@ pytest-django==4.11.1
 ruff==0.12.5
 psycopg==3.1.18
 django-allauth==65.10.0
+djangorestframework==3.16.0
