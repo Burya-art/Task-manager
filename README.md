@@ -21,6 +21,18 @@ Tech Stack
 
   - Python 3.13
 
-  Run tests
-  
-  pytest
+# How to Run
+
+## Docker-compose (Required)
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+## Run Tests
+docker-compose run --rm test
+
+## Linter
+ruff check .
+
+

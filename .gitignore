@@ -3,11 +3,20 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Git
+.git
+.gitignore
+
 # Django
 db.sqlite3
 *.log
 media/
 staticfiles/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
 
 # Virtual environment
 .venv/
