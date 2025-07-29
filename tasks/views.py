@@ -10,7 +10,6 @@ from tasks.models import Project, Task
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
-    """Сторінка проєкту з задачами (SPA інтерфейс)"""
     model = Project
     template_name = "tasks/project_detail.html"
     context_object_name = "project"
@@ -35,7 +34,7 @@ def create_project_htmx(request):
         project = form.save(commit=False)
         project.user = request.user
         project.save()
-        # Після успішного створення перенаправляємо на сторінку проекту
+        # Після успішного створення перенаправляємо на сторінку проєкту
         response = HttpResponse()
         response['HX-Redirect'] = f'/project/{project.pk}/'
         return response
@@ -57,8 +56,8 @@ def create_task_htmx(request, project_pk):
         task.project = project
         task.save()
         # Повертаємо нову задачу для додавання в список
-        return render(request, 'tasks/partials/task_item.html', {'task':
-                                                                     task})
+        return render(request, 'tasks/partials/task_item.html',
+                      {'task': task})
     else:
         # Повертаємо помилки валідації
         return render(request, 'tasks/partials/task_form_errors.html',
@@ -78,8 +77,8 @@ def toggle_task_status(request, task_pk):
     task.save()
 
     # Повертаємо оновлений HTML задачі
-    return render(request, 'tasks/partials/task_item.html', {'task':
-                                                                 task})
+    return render(request, 'tasks/partials/task_item.html',
+                  {'task': task})
 
 
 @login_required
@@ -109,10 +108,14 @@ def edit_task_htmx(request, task_pk):
             return render(request, 'tasks/partials/task_edit_form.html',
                           {'form': form, 'task': task})
     else:
-        # GET запит - показуємо форму редагування
-        form = TaskForm(instance=task)
-        return render(request, 'tasks/partials/task_edit_form.html',
-                      {'form': form, 'task': task})
+        # GET запит - показуємо форму редагування або скасовуємо
+        if request.GET.get('cancel'):
+            return render(request, 'tasks/partials/task_item.html', {'task': task})
+        else:
+            # Інакше показуємо форму редагування
+            form = TaskForm(instance=task)
+            return render(request, 'tasks/partials/task_edit_form.html',
+                          {'form': form, 'task': task})
 
 
 @login_required
@@ -145,7 +148,6 @@ def home_redirect(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
 
-    # Отримуємо проєкти користувача
     user_projects = request.user.projects.all()
 
     if user_projects.exists():

@@ -9,7 +9,6 @@ class TestTaskOrdering:
         """Тест що задачі сортуються за пріоритетом, потім за датою створення"""
         from tasks.models import Task  # імпорт всередині функції
 
-        # Створюємо задачі з різними пріоритетами
         task_high = Task.objects.create(
             name="High Priority Task",
             project=project,
@@ -31,7 +30,6 @@ class TestTaskOrdering:
             status="pending",
         )
 
-        # Отримуємо всі задачі
         tasks = list(Task.objects.all())
 
         # Перевіряємо що ordering працює правильно

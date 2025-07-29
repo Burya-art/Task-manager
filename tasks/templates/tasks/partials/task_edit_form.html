@@ -4,18 +4,40 @@
           hx-swap="outerHTML"
           class="p-3 border rounded bg-light">
         {% csrf_token %}
+        <!-- Приховане поле для статусу -->
+        <input type="hidden" name="status" value="{{ form.status.value|default:'pending' }}">
         <div class="row">
-            <div class="col-md-6 mb-2">
-                {{ form.name.label_tag }}
-                {{ form.name }}
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Task Name</label>
+                <input type="text" 
+                       class="form-control{% if form.name.errors %} is-invalid{% endif %}" 
+                       id="{{ form.name.id_for_label }}" 
+                       name="{{ form.name.name }}" 
+                       value="{{ form.name.value|default:'' }}"
+                       required>
+                {% if form.name.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="col-md-3 mb-2">
-                {{ form.priority.label_tag }}
-                {{ form.priority }}
+            <div class="col-md-3 mb-3">
+                <label for="{{ form.priority.id_for_label }}" class="form-label">Priority</label>
+                <select class="form-select" 
+                        id="{{ form.priority.id_for_label }}" 
+                        name="{{ form.priority.name }}">
+                    <option value="low" {% if form.priority.value == 'low' %}selected{% endif %}>Low</option>
+                    <option value="medium" {% if form.priority.value == 'medium' %}selected{% endif %}>Medium</option>
+                    <option value="high" {% if form.priority.value == 'high' %}selected{% endif %}>High</option>
+                </select>
             </div>
-            <div class="col-md-3 mb-2">
-                {{ form.deadline.label_tag }}
-                {{ form.deadline }}
+            <div class="col-md-3 mb-3">
+                <label for="{{ form.deadline.id_for_label }}" class="form-label">Deadline</label>
+                <input type="date" 
+                       class="form-control" 
+                       id="{{ form.deadline.id_for_label }}" 
+                       name="{{ form.deadline.name }}" 
+                       value="{{ form.deadline.value|date:'Y-m-d'|default:'' }}">
             </div>
         </div>
         <div class="mt-3">
