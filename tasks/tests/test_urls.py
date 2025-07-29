@@ -86,14 +86,6 @@ class TestTasksEndpoints:
         assert task.name == 'Updated Task Name'
         assert task.priority == 'high'
 
-    def test_edit_task_htmx_endpoint_cancel(self, authenticated_client, task):
-        response = authenticated_client.get(
-            reverse('tasks:edit_task_htmx', kwargs={'task_pk': task.pk}) +
-            '?cancel=true')
-
-        assert response.status_code == status.HTTP_200_OK
-        assert 'tasks/partials/task_item.html' in [t.name for t in response.templates]
-
     def test_show_delete_task_modal_htmx_endpoint(
             self, authenticated_client, task):
         response = authenticated_client.get(

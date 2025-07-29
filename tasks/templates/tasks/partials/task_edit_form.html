@@ -46,8 +46,9 @@
             </button>
             <button type="button"
                     class="btn btn-secondary btn-sm"
-                    hx-get="{% url 'tasks:edit_task_htmx' task_pk=task.pk %}?cancel=1"
+                    hx-get="{% url 'tasks:project_detail' pk=task.project.pk %}"
                     hx-target="#task-{{ task.pk }}"
+                    hx-select="#task-{{ task.pk }}"
                     hx-swap="outerHTML">
                 Cancel
             </button>

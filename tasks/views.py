@@ -101,13 +101,10 @@ def edit_task_htmx(request, task_pk):
             return render(request, 'tasks/partials/task_edit_form.html',
                           {'form': form, 'task': task})
     else:
-        # GET запит - показуємо форму редагування або скасовуємо
-        if request.GET.get('cancel'):
-            return render(request, 'tasks/partials/task_item.html', {'task': task})
-        else:
-            form = TaskForm(instance=task)
-            return render(request, 'tasks/partials/task_edit_form.html',
-                          {'form': form, 'task': task})
+        # GET запит - показуємо форму редагування
+        form = TaskForm(instance=task)
+        return render(request, 'tasks/partials/task_edit_form.html',
+                      {'form': form, 'task': task})
 
 
 @login_required
