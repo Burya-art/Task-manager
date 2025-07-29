@@ -53,4 +53,9 @@ urlpatterns = [
         views.delete_task_htmx,
         name="delete_task_htmx",
     ),
+    path(
+        "htmx/project/<int:project_pk>/tasks/reorder/",
+        views.reorder_tasks_htmx,
+        name="reorder_tasks_htmx",
+    ),
 ]

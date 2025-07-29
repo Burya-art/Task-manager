@@ -56,4 +56,66 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(checkEmptyState, 100);
         }
     });
+
+    // Drag & Drop функціональність
+    let draggedElement = null;
+
+    // Коли починається перетягування
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.classList.contains('draggable-task')) {
+            draggedElement = e.target;
+            e.target.style.opacity = '0.5';
+        }
+    });
+
+    // Коли перетягування закінчується
+    document.addEventListener('dragend', function(e) {
+        if (e.target.classList.contains('draggable-task')) {
+            e.target.style.opacity = '1';
+        }
+    });
+
+    // Дозволяємо скидати елементи
+    document.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    });
+
+    // Обробка скидання елемента
+    document.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            // Шукаємо найближчу задачу або список задач
+            let dropTarget = e.target.closest('.draggable-task');
+            let taskList = document.getElementById('task-list');
+            
+            if (dropTarget && draggedElement !== dropTarget) {
+                // Скидаємо на іншу задачу - вставляємо перед нею
+                taskList.insertBefore(draggedElement, dropTarget);
+                updateTaskOrder();
+            } else if (!dropTarget && e.target.closest('#task-list')) {
+                // Скидаємо в порожнє місце списку - додаємо в кінець
+                taskList.appendChild(draggedElement);
+                updateTaskOrder();
+            }
+        }
+    });
+
+    // Функція оновлення порядку задач на сервері
+    function updateTaskOrder() {
+        const taskElements = document.querySelectorAll('.draggable-task');
+        const taskIds = Array.from(taskElements).map(el => el.dataset.taskId);
+        const projectId = window.location.pathname.split('/')[2]; // Отримуємо ID проєкту з URL
+        
+        // Відправляємо до Django через HTMX
+        const formData = new FormData();
+        taskIds.forEach(id => formData.append('task_ids[]', id));
+        
+        fetch(`/htmx/project/${projectId}/tasks/reorder/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        });
+    }
 });

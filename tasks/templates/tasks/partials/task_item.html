@@ -1,4 +1,7 @@
-<div class="task-item d-flex align-items-center" id="task-{{ task.pk }}">
+<div class="task-item draggable-task d-flex align-items-center" 
+     id="task-{{ task.pk }}" 
+     draggable="true" 
+     data-task-id="{{ task.pk }}">
     <input type="checkbox"
            class="task-checkbox form-check-input"
            {% if task.status == 'completed' %}checked{% endif %}
@@ -28,14 +31,14 @@
                 hx-target="#task-{{ task.pk }}"
                 hx-swap="outerHTML"
                 title="Edit">
-            <i class="fas fa-pencil-alt me-1"></i>Edit
+            <i class="fas fa-pencil-alt"></i>
         </button>
         <button class="btn btn-sm btn-delete-task"
                 hx-get="{% url 'tasks:show_delete_task_modal_htmx' task_pk=task.pk %}"
                 hx-target="#modal-container"
                 hx-swap="innerHTML"
                 title="Delete">
-            <i class="fas fa-trash me-1"></i>Delete
+            <i class="fas fa-trash"></i>
         </button>
     </div>
 </div>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Logout - TaskFlow Manager{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg rounded-3">
+                <div class="card-header text-white py-4 text-center">
+                    <h3 class="mb-0">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        Are you sure?
+                    </h3>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <p class="mb-4">Do you really want to log out?</p>
+                    <form method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger me-2">
+                            <i class="fas fa-sign-out-alt me-2"></i>Yes, Logout
+                        </button>
+                    </form>
+                    <a href="{% url 'home' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

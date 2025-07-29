@@ -7,6 +7,15 @@
     transition: background-color 0.2s ease;
 }
 
+/* Drag & Drop стилі */
+.draggable-task {
+    cursor: grab;
+}
+
+.draggable-task:active {
+    cursor: grabbing;
+}
+
 .task-item:hover {
     background-color: #f8f9fa;
 }
@@ -71,6 +80,15 @@
 }
 
 /* Кнопки дій задач */
+.task-actions {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.task-item:hover .task-actions {
+    opacity: 1;
+}
+
 .task-actions .btn {
     border-radius: 4px;
     padding: 4px 8px;

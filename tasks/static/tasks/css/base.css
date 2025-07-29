@@ -56,3 +56,56 @@ body {
     border-color: #3a5d96;
     box-shadow: 0 0 0 0.2rem rgba(66, 108, 172, 0.25);
 }
+
+
+
+/* Стилі для сторінок аутентифікації */
+
+
+
+  .card .card-header {
+      background-color: #436cac;
+      border-bottom: none;
+      font-weight: 500;
+      color: white;
+  }
+
+  .btn.btn-primary {
+      background-color: #436cac;
+      border-color: #436cac;
+      font-weight: 600;
+  }
+
+  .btn.btn-primary:hover {
+      background-color: #3a5d96;
+      border-color: #3a5d96;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(67, 108, 172, 0.3);
+  }
+
+  .btn.btn-primary:focus,
+  .btn.btn-primary:active {
+      background-color: #3a5d96;
+      border-color: #3a5d96;
+      box-shadow: 0 0 0 0.2rem rgba(67, 108, 172, 0.25);
+  }
+
+  /* Стилі форм аутентифікації */
+  .form-control:focus {
+      border-color: #436cac;
+      box-shadow: 0 0 0 0.2rem rgba(67, 108, 172, 0.15);
+  }
+
+  .text-muted {
+      color: #6c757d;
+  }
+
+  /* Посилання в формах аутентифікації */
+  a.text-decoration-none {
+      color: #436cac;
+      transition: color 0.2s ease;
+  }
+
+  a.text-decoration-none:hover {
+      color: #3a5d96;
+  }

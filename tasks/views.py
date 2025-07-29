@@ -10,7 +10,6 @@ from tasks.models import Project, Task
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
-    """Сторінка проєкту з задачами (SPA інтерфейс)"""
     model = Project
     template_name = "tasks/project_detail.html"
     context_object_name = "project"
@@ -35,12 +34,11 @@ def create_project_htmx(request):
         project = form.save(commit=False)
         project.user = request.user
         project.save()
-        # Після успішного створення перенаправляємо на сторінку проекту
+        # Після успішного створення перенаправляємо на сторінку проєкту
         response = HttpResponse()
         response['HX-Redirect'] = f'/project/{project.pk}/'
         return response
     else:
-        # Повертаємо форму з помилками в модальному вікні
         return render(request, 'tasks/partials/project_create_modal.html',
                       {'form': form})
 
@@ -56,11 +54,9 @@ def create_task_htmx(request, project_pk):
         task = form.save(commit=False)
         task.project = project
         task.save()
-        # Повертаємо нову задачу для додавання в список
-        return render(request, 'tasks/partials/task_item.html', {'task':
-                                                                     task})
+        return render(request, 'tasks/partials/task_item.html',
+                      {'task': task})
     else:
-        # Повертаємо помилки валідації
         return render(request, 'tasks/partials/task_form_errors.html',
                       {'form': form})
 
@@ -77,9 +73,8 @@ def toggle_task_status(request, task_pk):
         task.status = 'completed'
     task.save()
 
-    # Повертаємо оновлений HTML задачі
-    return render(request, 'tasks/partials/task_item.html', {'task':
-                                                                 task})
+    return render(request, 'tasks/partials/task_item.html',
+                  {'task': task})
 
 
 @login_required
@@ -88,7 +83,6 @@ def delete_task_htmx(request, task_pk):
     """HTMX: Видалення задачі"""
     task = get_object_or_404(Task, pk=task_pk, project__user=request.user)
     task.delete()
-    # Повертаємо порожній response - HTMX видалить елемент з DOM
     return HttpResponse('')
 
 
@@ -101,18 +95,19 @@ def edit_task_htmx(request, task_pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            # Повертаємо оновлену задачу
             return render(request, 'tasks/partials/task_item.html',
                           {'task': task})
         else:
-            # Повертаємо форму з помилками
             return render(request, 'tasks/partials/task_edit_form.html',
                           {'form': form, 'task': task})
     else:
-        # GET запит - показуємо форму редагування
-        form = TaskForm(instance=task)
-        return render(request, 'tasks/partials/task_edit_form.html',
-                      {'form': form, 'task': task})
+        # GET запит - показуємо форму редагування або скасовуємо
+        if request.GET.get('cancel'):
+            return render(request, 'tasks/partials/task_item.html', {'task': task})
+        else:
+            form = TaskForm(instance=task)
+            return render(request, 'tasks/partials/task_edit_form.html',
+                          {'form': form, 'task': task})
 
 
 @login_required
@@ -120,7 +115,6 @@ def delete_project_htmx(request, project_pk):
     """HTMX: Видалення проєкту"""
     project = get_object_or_404(Project, pk=project_pk, user=request.user)
     project.delete()
-    # Повертаємо порожній response
     return HttpResponse('')
 
 
@@ -143,9 +137,8 @@ def show_delete_task_modal_htmx(request, task_pk):
 def home_redirect(request):
     """Розумна навігація з головної сторінки"""
     if not request.user.is_authenticated:
-        return redirect('/admin/login/')
+        return redirect('/accounts/login/')
 
-    # Отримуємо проєкти користувача
     user_projects = request.user.projects.all()
 
     if user_projects.exists():
@@ -160,3 +153,22 @@ def home_redirect(request):
             user=request.user
         )
         return redirect('tasks:project_detail', pk=default_project.pk)
+
+
+@login_required
+@require_POST
+def reorder_tasks_htmx(request, project_pk):
+    """HTMX: Оновлення порядку задач після drag & drop"""
+    project = get_object_or_404(Project, pk=project_pk, user=request.user)
+
+    task_ids = request.POST.getlist('task_ids[]')
+
+    for index, task_id in enumerate(task_ids):
+        Task.objects.filter(
+            pk=task_id,
+            project=project
+        ).update(order=index + 1)
+
+    tasks = project.tasks.all()
+    return render(request, 'tasks/partials/task_list.html',
+                  {'tasks': tasks})

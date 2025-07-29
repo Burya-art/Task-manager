@@ -4,7 +4,6 @@ from tasks.models import Project, Task
 
 
 class ProjectForm(forms.ModelForm):
-    """Form for creating and editing projects"""
 
     class Meta:
         model = Project
@@ -21,7 +20,6 @@ class ProjectForm(forms.ModelForm):
         }
 
     def clean_name(self):
-        """Project name validation"""
         name = self.cleaned_data.get('name')
         if not name or len(name.strip()) < 3:
             raise forms.ValidationError('Project name must contain at least 3 characters')
@@ -29,7 +27,6 @@ class ProjectForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
-    """Form for creating and editing tasks"""
 
     class Meta:
         model = Task
@@ -59,7 +56,6 @@ class TaskForm(forms.ModelForm):
         }
 
     def clean_name(self):
-        """Task name validation"""
         name = self.cleaned_data.get('name')
         if not name or len(name.strip()) < 3:
             raise forms.ValidationError('Task name must contain at least 3 characters')
