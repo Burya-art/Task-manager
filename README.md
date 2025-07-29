@@ -23,7 +23,7 @@ Tech Stack
 
 # How to Run
 
-## Docker-compose (Required)
+## Docker-compose
 docker-compose up --build
 
 # Run in background
