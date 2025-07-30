@@ -15,11 +15,6 @@ Tech Stack
   - Responsiveness: Bootstrap 5 for proper display on all devices.
   - Deployment: Project runs via Docker Compose.
 
-  Local Development Setup
-
-  Prerequisites
-
-  - Python 3.13
 
 # How to Run
 
