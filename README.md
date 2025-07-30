@@ -11,7 +11,7 @@ Tech Stack
   - Project Management: Create your own projects. Owner-only access.
   - Task Management: Add, update, delete tasks, and mark them as complete. Includes priorities and deadlines.
   - Interactive UI: HTMX-powered AJAX operations ensure dynamic, no-reload updates.
-  - Authentication: Secure data access with django-allauth.
+  - Secure Login: Registration and Authentication with django-allauth.
   - Responsiveness: Bootstrap 5 for proper display on all devices.
   - Deployment: Project runs via Docker Compose.
 
